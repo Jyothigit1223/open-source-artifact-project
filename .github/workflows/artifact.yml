@@ -1,0 +1,26 @@
+name: Download Package and Upload Artifact
+
+on:
+  push
+
+jobs:
+  download-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Run Python Script
+        run: python download_package.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: open-source-package
+          path: "*.tar.gz"
